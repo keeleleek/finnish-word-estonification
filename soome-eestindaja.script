@@ -1,0 +1,57 @@
+! kasuta kaalusid
+set encode-weights ON
+set print-weight ON
+
+define C [p|f|g|c|r|l|d|h|t|n|s|q|j|k|x|b|m|w|v|z];
+define V [a|o|e|u|i|ä|{õ}|ö|ü|y];
+
+define ShortS [C V];
+define LongOS [C V V];
+define LongCS [C V V C];
+
+! 2. y kirjutatakse ü-ga
+regex [y -> ü];
+
+! 3. lõpukadu
+! kui esimene silp on pikk
+regex [V -> 0 || C C _ .#.
+               , V V C _ .#.];
+! j muutub i-ks sõna lõpus
+regex [j -> i || _ .#.];
+
+! 4. jälkitavun vokaalit
+regex [o -> u
+      ,ö -> u
+      ,ä -> [a|e]
+      ,ü -> [i|u]
+      || .#. [C* V+ C+]+ _];
+
+! 5. sananloppuinen n
+regex [n (->) 0 || _ .#.];
+! kui sõnalõpuline n pole kadunud, on sõna verb (aga see on vähetõenäone)
+regex [[. .] -> ["+V"::1] || n _ .#.];
+
+! 6. sisäheitto
+regex [V+ -> 0 || .#. C V V C C _ C V
+                , .#. C V C C _ C V
+                , .#. C V V C _ C V];
+
+! 7. ensimmäisen tavun diftongeja vastaavat seuraavissa tapauksissa pitkät vokaalit
+regex [{ie} -> {ee}
+      ,{uo} -> {oo}
+      ,{üö} -> {öö}
+      ,{ai} -> {ae}
+      ,{oi} -> [{oe}|{õi}]
+      ,{ou} -> {õu}
+      ,{äü} -> {äi}
+      ,{öü} -> [{ei}|{öi}]
+      || .#. C* _];
+
+! 8. h disappears if in beginning of a syllable
+regex [h -> 0 \\ C _ V];
+
+
+! @todo sisekao tõttu tuleks muuta ka järjendeid nt {ttr} -> {tr}
+
+rotate stack ! liigutab 8. reegli esimeseks
+compose net
