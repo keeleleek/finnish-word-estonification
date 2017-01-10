@@ -12,13 +12,22 @@ define LongOS [C V V];
 define LongCS [C V V C];
 
 ! Consonants
+! Long consonants are written with one grapheme if after long vowel or diphtong
+! or in a consonant cluster.
+regex [{kk} -> k
+      ,{pp} -> p
+      ,{tt} -> t
+      || V V _
+      ,  C _
+      ,  _ C];
+
 ! Finnish kpt -> gbd if between vowels or after a voiced consonant.
 regex [k -> g
       ,p -> b
       ,t -> d
       || V _ V
       ,  V _ .#.
-      ,  VoicedC _ ];
+      ,  VoicedC _ ?];
 
 ! 2. y kirjutatakse ü-ga
 regex [y -> ü];
