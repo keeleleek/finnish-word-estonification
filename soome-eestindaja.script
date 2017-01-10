@@ -11,32 +11,16 @@ define ShortS [C V];
 define LongOS [C V V];
 define LongCS [C V V C];
 
-! Consonants
-! Long consonants are written with one grapheme if after long vowel or diphtong
-! or in a consonant cluster.
-regex [{kk} -> k
-      ,{pp} -> p
-      ,{tt} -> t
-      || V V _
-      ,  C _
-      ,  _ C];
-
-! Finnish kpt -> gbd if between vowels or after a voiced consonant.
-regex [k -> g
-      ,p -> b
-      ,t -> d
-      || V _ V
-      ,  V _ .#.
-      ,  VoicedC _ ?];
-
-! 2. y kirjutatakse ü-ga
+!! Vowel rules
+! Finnish y is written as ü in Estonian (vowel rule number 2)
 regex [y -> ü];
 
-! 3. lõpukadu
-! kui esimene silp on pikk
+! Apocope (vowel rule number 3)
+! the last vowel is dropped after a long syllable
 regex [V -> 0 || C C _ .#.
                , V V C _ .#.];
-! j muutub i-ks sõna lõpus
+
+! Word-final j is written as i
 regex [j -> i || _ .#.];
 
 ! 4. jälkitavun vokaalit
@@ -45,11 +29,6 @@ regex [o -> u
       ,ä -> [a|e]
       ,ü -> [i|u]
       || .#. [C* V+ C+]+ _];
-
-! 5. sananloppuinen n
-regex [n (->) 0 || _ .#.];
-! kui sõnalõpuline n pole kadunud, on sõna verb (aga see on vähetõenäone)
-regex [[. .] -> ["+V"::1] || n _ .#.];
 
 ! 6. sisäheitto
 regex [V+ -> 0 || .#. C V V C C _ C V
@@ -67,11 +46,39 @@ regex [{ie} -> {ee}
       ,{öü} -> [{ei}|{öi}]
       || .#. C* _];
 
+
+!! Consonant rules
+! Long consonants are written with one grapheme if after long vowel or diphtong
+! or in a consonant cluster. (consonant rule number 3.)
+regex [{kk} -> k
+      ,{pp} -> p
+      ,{tt} -> t
+      || V V _
+      ,  C _
+      ,  _ C];
+
+! Finnish kpt is written as gbd if between vowels or after a voiced consonant.
+! (consonant rule number 1.)
+regex [k -> g
+      ,p -> b
+      ,t -> d
+      || V _ V
+      ,  V _ .#.
+      ,  VoicedC _ ?];
+
+! Word-final n is dropped everywhere excep in verbs. (consonant rule number 5.)
+regex [n (->) 0 || _ .#.];
+! if n is not dropped, the word is a verb, but this is rare so add a penalty
+regex [[. .] -> ["+V"::1] || n _ .#.];
+
+! @todo add consonant rule nr 2
+! @todo add other "phonetical" rules
+! @todo add syllabification rules
+
 ! 8. h disappears if in beginning of a syllable
 regex [h -> 0 \\ C _ V];
 
 
-! @todo sisekao tõttu tuleks muuta ka järjendeid nt {ttr} -> {tr}
 
-rotate stack ! liigutab 8. reegli esimeseks
+rotate stack ! this makes the last rule the first to apply
 compose net
