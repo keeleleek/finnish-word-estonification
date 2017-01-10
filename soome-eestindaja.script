@@ -3,11 +3,22 @@ set encode-weights ON
 set print-weight ON
 
 define C [p|f|g|c|r|l|d|h|t|n|s|q|j|k|x|b|m|w|v|z];
+define VoicedC [j|l|m|n|r|v];
 define V [a|o|e|u|i|ä|{õ}|ö|ü|y];
+
 
 define ShortS [C V];
 define LongOS [C V V];
 define LongCS [C V V C];
+
+! Consonants
+! Finnish kpt -> gbd if between vowels or after a voiced consonant.
+regex [k -> g
+      ,p -> b
+      ,t -> d
+      || V _ V
+      ,  V _ .#.
+      ,  VoicedC _ ];
 
 ! 2. y kirjutatakse ü-ga
 regex [y -> ü];
