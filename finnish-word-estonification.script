@@ -31,10 +31,11 @@ define V [a|o|e|u|i|ä|{õ}|ö|ü|y];
 define BackV [o|a|u];
 define FrontV [V - BackV];
 
-
 define ShortS [C V];
 define LongOS [C V V];
 define LongCS [C V V C];
+
+
 
 !! Vowel rules
 ! Finnish y is written as ü in Estonian (vowel rule number 2)
@@ -78,15 +79,26 @@ regex [V+ -> 0 || .#. C V V C C _ C V
                 , .#. C V V C _ C V];
 
 
+
 !! Consonant rules
 ! Long consonants are written with one grapheme if after long vowel or diphtong
 ! or in a consonant cluster. (consonant rule number 3.)
+! @todo does this apply to all consonants?
 regex [{kk} -> k
       ,{pp} -> p
       ,{tt} -> t
       || V V _
       ,  C _
       ,  _ C];
+
+
+! Also shorten long consonants in the end of the word
+! @todo this should apply to all consonants
+regex [{kk} -> k
+      ,{pp} -> p
+      ,{tt} -> t
+      || _ .#.];
+
 
 ! Finnish kpt is written as gbd if between vowels or after a voiced consonant.
 ! (consonant rule number 1.)
@@ -97,7 +109,7 @@ regex [k -> g
       ,  V _ .#.
       ,  VoicedC _ ?];
 
-! Word-final n is dropped everywhere excep in verbs. (consonant rule number 5.)
+! Word-final n is dropped everywhere except in verbs. (consonant rule number 5.)
 regex [n (->) 0 || _ .#.];
 ! if n is not dropped, the word is a verb, but this is rare so add a penalty
 regex [[. .] -> ["+V"::1] || n _ .#.];
@@ -126,6 +138,8 @@ regex [{aa} -> a
 regex [h -> 0 \\ C _ V];
 
 
+
+! @todo use named definitions and compose the definitions (instead of the stack)
 
 rotate stack ! this makes the last rule the first to apply
 compose net
