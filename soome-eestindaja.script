@@ -5,8 +5,8 @@ set print-weight ON
 define C [p|f|g|c|r|l|d|h|t|n|s|q|j|k|x|b|m|w|v|z];
 define VoicedC [j|l|m|n|r|v];
 define V [a|o|e|u|i|ä|{õ}|ö|ü|y];
-define FrontV [ä|ö|ü|y|i];
-define BackV [V - FrontV];
+define BackV [o|a|u];
+define FrontV [V - BackV];
 
 
 define ShortS [C V];
