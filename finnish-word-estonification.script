@@ -1,3 +1,26 @@
+# -*- coding: utf-8 -*-
+
+# Finnish word Estonification script
+
+# Copyright (C) 2017 Kristian Kankainen
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+
+# This script generates a transducer that makes Finnish words look and
+# feel more like their Estonian counterparts.
+# Most of the rules are taken from the paper Kasik, Reet. 1997. Hakkame
+# rääkima!: viron kielen peruskurssi. (Publications of the Department of
+# Finnish and General Linguistics of the University of Turku 37). Turku.
+# This script is done for educational purposes of the author.
+
+
 ! Use weights
 set encode-weights ON
 set print-weight ON
