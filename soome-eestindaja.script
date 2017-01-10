@@ -71,7 +71,8 @@ regex [n (->) 0 || _ .#.];
 ! if n is not dropped, the word is a verb, but this is rare so add a penalty
 regex [[. .] -> ["+V"::1] || n _ .#.];
 
-!
+! Word-internal d is dropped in Estonian (consonant rule nr 7).
+regex [d -> 0 || V _ V, h _ V];
 
 ! @todo add consonant rule nr 2
 ! @todo add other "phonetical" rules
