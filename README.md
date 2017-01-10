@@ -1,13 +1,13 @@
-# finnish-word-estonification
-Finite state transducer that makes Finnish words more close to their potential Estonian counterparts
+# Estonification of Finnish words
+A finite state transducer that makes Finnish words more close to their potential Estonian counterparts.
 
-The script is done mainly for educational purposes of the author, but could be useful for finding cognates in Finnish-Estonian parallel texts or dictionaries.
+The script was done mainly for educational purposes of the author, but could be useful for finding cognates in Finnish-Estonian parallel texts or dictionaries.
 
 # Usage
 Load the script into xfst ```hfst-xfst -l finnish-word-estonification.script```
-use command ```up``` with Finnish words
+and use command ```up``` with Finnish words
 
-Examples
+# Examples
 "Minä olen uusi eestin kielen opettaja"
 ```
 hfst[1]: up minä
@@ -44,3 +44,6 @@ hfst[1]: up kauan
 kaua	0.00000
 kauan+V	1.00000
 ```
+
+# Errata
+There exists many errors and faults. Some will be dealt with and some not. The project will soon get a more solid framework for testing.
