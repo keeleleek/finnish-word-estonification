@@ -5,6 +5,8 @@ set print-weight ON
 define C [p|f|g|c|r|l|d|h|t|n|s|q|j|k|x|b|m|w|v|z];
 define VoicedC [j|l|m|n|r|v];
 define V [a|o|e|u|i|ä|{õ}|ö|ü|y];
+define FrontV [ä|ö|ü|y|i];
+define BackV [V - FrontV];
 
 
 define ShortS [C V];
@@ -14,6 +16,22 @@ define LongCS [C V V C];
 !! Vowel rules
 ! Finnish y is written as ü in Estonian (vowel rule number 2)
 regex [y -> ü];
+
+! First syllables are not diphtongized in Estonian (vowel rule nr 7).
+regex [{uo} -> {oo}
+      ,{üö} -> {öö}
+      || .#. C* _];
+! The diphtong ie can be fronted or backed
+regex [{ie} -> {ee} || .#. C* _ $[FrontV]];
+regex [{ie} -> {õõ} || .#. C* _ $[BackV]];
+
+! Other probable diphtong correspondencies (vowel rule 8).
+regex [{ai} -> {ae}
+      ,{oi} -> [{oe}|{õi}]
+      ,{ou} -> {õu}
+      ,{äü} -> {äi}
+      ,{öü} -> [{ei}|{öi}]
+      || .#. C* _];
 
 ! Apocope (vowel rule number 3)
 ! the last vowel is dropped after a long syllable
@@ -34,17 +52,6 @@ regex [o -> u
 regex [V+ -> 0 || .#. C V V C C _ C V
                 , .#. C V C C _ C V
                 , .#. C V V C _ C V];
-
-! 7. ensimmäisen tavun diftongeja vastaavat seuraavissa tapauksissa pitkät vokaalit
-regex [{ie} -> {ee}
-      ,{uo} -> {oo}
-      ,{üö} -> {öö}
-      ,{ai} -> {ae}
-      ,{oi} -> [{oe}|{õi}]
-      ,{ou} -> {õu}
-      ,{äü} -> {äi}
-      ,{öü} -> [{ei}|{öi}]
-      || .#. C* _];
 
 
 !! Consonant rules
