@@ -24,6 +24,7 @@ regex [{uo} -> {oo}
 ! The diphtong ie can be fronted or backed
 regex [{ie} -> {ee} || .#. C* _ $[FrontV]];
 regex [{ie} -> {õõ} || .#. C* _ $[BackV]];
+regex [{ie} -> {ee} || .#. C* _ ~$[FrontV|BackV]]; ! default
 
 ! Other probable diphtong correspondencies (vowel rule 8).
 regex [{ai} -> {ae}
