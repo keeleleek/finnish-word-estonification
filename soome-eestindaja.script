@@ -30,7 +30,7 @@ regex [o -> u
       ,ü -> [i|u]
       || .#. [C* V+ C+]+ _];
 
-! 6. sisäheitto
+! Syncope (vowel rule nr 6.)
 regex [V+ -> 0 || .#. C V V C C _ C V
                 , .#. C V C C _ C V
                 , .#. C V V C _ C V];
@@ -70,6 +70,8 @@ regex [k -> g
 regex [n (->) 0 || _ .#.];
 ! if n is not dropped, the word is a verb, but this is rare so add a penalty
 regex [[. .] -> ["+V"::1] || n _ .#.];
+
+!
 
 ! @todo add consonant rule nr 2
 ! @todo add other "phonetical" rules
