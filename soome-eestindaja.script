@@ -1,4 +1,4 @@
-! kasuta kaalusid
+! Use weights
 set encode-weights ON
 set print-weight ON
 
@@ -42,14 +42,14 @@ regex [V -> 0 || C C _ .#.
 ! Word-final j is written as i
 regex [j -> i || _ .#.];
 
-! 4. jälkitavun vokaalit
+! Vowels in non-initial syllables (vowel rule nr 4).
 regex [o -> u
       ,ö -> u
       ,ä -> [a|e]
       ,ü -> [i|u]
       || .#. [C* V+ C+]+ _];
 
-! Syncope (vowel rule nr 6.)
+! Syncope (vowel rule nr 6).
 regex [V+ -> 0 || .#. C V V C C _ C V
                 , .#. C V C C _ C V
                 , .#. C V V C _ C V];
@@ -99,7 +99,7 @@ regex [{aa} -> a
       ,{yy} -> y
       || _ h];
 
-! 8. h disappears if in beginning of a syllable
+! h disappears if in beginning of a syllable (vowel rule nr 8).
 regex [h -> 0 \\ C _ V];
 
 
