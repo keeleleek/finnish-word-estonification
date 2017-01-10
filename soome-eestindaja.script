@@ -85,6 +85,19 @@ regex [d -> 0 || V _ V, h _ V];
 ! @todo add other "phonetical" rules
 ! @todo add syllabification rules
 
+! Long vowels are shortened in front of h (vowel rule 9).
+regex [{aa} -> a
+      ,{oo} -> o
+      ,{ee} -> e
+      ,{uu} -> u
+      ,{ii} -> i
+      ,{ää} -> ä
+      ,{õõ} -> {õ}
+      ,{öö} -> ö
+      ,{üü} -> ü
+      ,{yy} -> y
+      || _ h];
+
 ! 8. h disappears if in beginning of a syllable
 regex [h -> 0 \\ C _ V];
 
