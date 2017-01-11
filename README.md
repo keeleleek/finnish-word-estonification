@@ -8,7 +8,7 @@ Load the script into xfst ```hfst-xfst -l finnish-word-estonification.script```
 and use command ```up``` with Finnish words
 
 # Examples
-"Minä olen uusi eestin kielen opettaja"
+Finnish "Minä olen uusi eestin kielen opettaja" should be estonificated "Mina olen uus eesti keele õpetaja".
 ```
 hfst[1]: up minä
 mina	0.00000
@@ -28,7 +28,7 @@ hfst[1]: up opettaja
 obettaja	0.00000
 ```
 
-"Suomen murteet pysyvät kauan"
+Finnish "Suomen murteet pysyvät kauan" should be estonificated "Soome murded püsivad kaua".
 ```
 hfst[1]: up suomen
 soome	0.00000
