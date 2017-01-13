@@ -75,6 +75,7 @@ define VRule4 [o -> u
               || .#. [C* V+ C+]+ _];
 
 ! Syncope (vowel rule nr 6).
+! @todo should the context apply word initially or word finally?
 define VRule6 [V+ -> 0
               || .#. C V V C C _ C V
               , .#. C V C C _ C V
