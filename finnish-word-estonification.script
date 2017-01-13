@@ -118,8 +118,21 @@ define CRule5 [n (->) 0 || _ .#.];
 define CRule5a [[. .] -> ["+V"::1] || n _ .#.];
 
 ! Word-internal d is dropped in Estonian (consonant rule nr 7).
-! @todo probably long vowels should be shortened before dropping the d (see #9)
+! @todo should we add a syllable border here?
 define CRule7 [d -> 0 || V _ V, h _ V];
+
+! long vowels are shortened before dropping the d
+define CRule7a [{aa} -> a
+              ,{oo} -> o
+              ,{ee} -> e
+              ,{uu} -> u
+              ,{ii} -> i
+              ,{ää} -> ä
+              ,{õõ} -> {õ}
+              ,{öö} -> ö
+              ,{üü} -> ü
+              ,{yy} -> y
+              || _ d];
 
 ! @todo add consonant rule nr 2
 ! @todo add other "phonetical" rules
@@ -159,8 +172,6 @@ regex [
   .o.
   VRule7c
   .o.
-  VRule8
-  .o.
   VRule3
   .o.
   VRule3a
@@ -168,6 +179,10 @@ regex [
   VRule4
   .o.
   VRule6
+  .o.
+  CRule7a
+  .o.
+  CRule7
   .o.
   CRule3
   .o.
@@ -179,7 +194,7 @@ regex [
   .o.
   CRule5a
   .o.
-  CRule7
+  VRule8
   .o.
   CRule9
 ];
