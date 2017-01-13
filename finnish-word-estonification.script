@@ -102,6 +102,7 @@ regex [{kk} -> k
 
 ! Finnish kpt is written as gbd if between vowels or after a voiced consonant.
 ! (consonant rule number 1.)
+! @todo what about word-final kpt?
 regex [k -> g
       ,p -> b
       ,t -> d
@@ -111,10 +112,11 @@ regex [k -> g
 
 ! Word-final n is dropped everywhere except in verbs. (consonant rule number 5.)
 regex [n (->) 0 || _ .#.];
-! if n is not dropped, the word is a verb, but this is rare so add a penalty
+! if n is not dropped, the word is a verb, but this is rare so we add a penalty
 regex [[. .] -> ["+V"::1] || n _ .#.];
 
 ! Word-internal d is dropped in Estonian (consonant rule nr 7).
+! @todo probably long vowels should be shortened before dropping the d (see #9)
 regex [d -> 0 || V _ V, h _ V];
 
 ! @todo add consonant rule nr 2
