@@ -159,7 +159,7 @@ define CRule8 [h -> 0 \\ C _ V];
 
 
 
-! @todo use named definitions and compose the definitions (instead of the stack)
+! @todo should not all long consonants be shortened if word-final?
 
 ! order and compose the rules
 regex [
