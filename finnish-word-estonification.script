@@ -67,7 +67,7 @@ define VRule3 [V -> 0
 ! Word-final j is written as i
 define VRule3a [j -> i || _ .#.];
 
-! Vowels in non-initial syllables (vowel rule nr 4).
+! Vowel correspondencies in non-initial syllables (vowel rule nr 4).
 define VRule4 [o -> u
               ,ö -> u
               ,ä -> [a|e]
@@ -160,41 +160,23 @@ define CRule8 [h -> 0 \\ C _ V];
 
 ! order and compose the rules
 regex [
-  CRule8
-  .o.
-  VRule2
-  .o.
-  VRule7
-  .o.
-  VRule7a
-  .o.
-  VRule7b
-  .o.
-  VRule7c
-  .o.
-  VRule3
-  .o.
-  VRule3a
-  .o.
-  VRule4
-  .o.
-  VRule6
-  .o.
-  CRule7a
-  .o.
-  CRule7
-  .o.
-  CRule3
-  .o.
-  CRule3a
-  .o.
-  CRule1
-  .o.
-  CRule5
-  .o.
-  CRule5a
-  .o.
-  VRule8
-  .o.
-  CRule9
+  CRule8 ! h disappears if in beginning of a syllable
+  .o.  VRule2  ! Finnish y is written as ü in Estonian
+  .o.  VRule7  ! First syllables are not diphtongized in Estonian
+  .o.  VRule7a ! The diphtong ie can be fronted
+  .o.  VRule7b ! The diphtong ie can be backed
+  .o.  VRule7c ! The diphtong ie is fronted by default
+  .o.  VRule3  ! Apocope e.g the last vowel is dropped after a long syllable
+  .o.  VRule3a ! Word-final j is written as i
+  .o.  VRule4  ! Vowel correspondencies in non-initial syllables
+  .o.  VRule6  ! Syncope
+  .o.  CRule7a ! long vowels are shortened before dropping the d
+  .o.  CRule7  ! Word-internal d is dropped
+  .o.  CRule3  ! Long consonants are written with one grapheme
+  .o.  CRule3a ! Long consonants are shorted in the end of the word
+  .o.  CRule1  ! Finnish kpt is written as gbd
+  .o.  CRule5  ! Word-final n is dropped
+  .o.  CRule5a ! if word-final n is not dropped, the word is a verb
+  .o.  VRule8  ! Other probable diphtong correspondencies
+  .o.  CRule9  ! Long vowels are shortened in front of h
 ];
