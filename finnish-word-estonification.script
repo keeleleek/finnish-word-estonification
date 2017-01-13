@@ -39,44 +39,46 @@ define LongCS [C V V C];
 
 !! Vowel rules
 ! Finnish y is written as ü in Estonian (vowel rule number 2)
-regex [y -> ü];
+define VRule2 [y -> ü];
 
 ! First syllables are not diphtongized in Estonian (vowel rule nr 7).
-regex [{uo} -> {oo}
-      ,{üö} -> {öö}
-      || .#. C* _];
+define VRule7 [{uo} -> {oo}
+              ,{üö} -> {öö}
+              || .#. C* _];
 ! The diphtong ie can be fronted or backed
-regex [{ie} -> {ee} || .#. C* _ $[FrontV]];
-regex [{ie} -> {õõ} || .#. C* _ $[BackV]];
-regex [{ie} -> {ee} || .#. C* _ ~$[FrontV|BackV]]; ! default
+define VRule7a [{ie} -> {ee} || .#. C* _ $[FrontV]];
+define VRule7b [{ie} -> {õõ} || .#. C* _ $[BackV]];
+define VRule7c [{ie} -> {ee} || .#. C* _ ~$[FrontV|BackV]]; ! default
 
 ! Other probable diphtong correspondencies (vowel rule 8).
-regex [{ai} -> {ae}
-      ,{oi} -> [{oe}|{õi}]
-      ,{ou} -> {õu}
-      ,{äü} -> {äi}
-      ,{öü} -> [{ei}|{öi}]
-      || .#. C* _];
+define VRule8 [{ai} -> {ae}
+              ,{oi} -> [{oe}|{õi}]
+              ,{ou} -> {õu}
+              ,{äü} -> {äi}
+              ,{öü} -> [{ei}|{öi}]
+              || .#. C* _];
 
 ! Apocope (vowel rule number 3)
 ! the last vowel is dropped after a long syllable
-regex [V -> 0 || C C _ .#.
-               , V V C _ .#.];
+define VRule3 [V -> 0
+              || C C _ .#.
+              , V V C _ .#.];
 
 ! Word-final j is written as i
-regex [j -> i || _ .#.];
+define VRule3a [j -> i || _ .#.];
 
 ! Vowels in non-initial syllables (vowel rule nr 4).
-regex [o -> u
-      ,ö -> u
-      ,ä -> [a|e]
-      ,ü -> [i|u]
-      || .#. [C* V+ C+]+ _];
+define VRule4 [o -> u
+              ,ö -> u
+              ,ä -> [a|e]
+              ,ü -> [i|u]
+              || .#. [C* V+ C+]+ _];
 
 ! Syncope (vowel rule nr 6).
-regex [V+ -> 0 || .#. C V V C C _ C V
-                , .#. C V C C _ C V
-                , .#. C V V C _ C V];
+define VRule6 [V+ -> 0
+              || .#. C V V C C _ C V
+              , .#. C V C C _ C V
+              , .#. C V V C _ C V];
 
 
 
@@ -84,64 +86,100 @@ regex [V+ -> 0 || .#. C V V C C _ C V
 ! Long consonants are written with one grapheme if after long vowel or diphtong
 ! or in a consonant cluster. (consonant rule number 3.)
 ! @todo does this apply to all consonants?
-regex [{kk} -> k
-      ,{pp} -> p
-      ,{tt} -> t
-      || V V _
-      ,  C _
-      ,  _ C];
+define CRule3 [{kk} -> k
+              ,{pp} -> p
+              ,{tt} -> t
+              || V V _
+              ,  C _
+              ,  _ C];
 
 
 ! Also shorten long consonants in the end of the word
 ! @todo this should apply to all consonants
-regex [{kk} -> k
-      ,{pp} -> p
-      ,{tt} -> t
-      || _ .#.];
+define CRule3a [{kk} -> k
+               ,{pp} -> p
+               ,{tt} -> t
+               || _ .#.];
 
 
 ! Finnish kpt is written as gbd if between vowels or after a voiced consonant.
 ! (consonant rule number 1.)
 ! @todo what about word-final kpt?
-regex [k -> g
-      ,p -> b
-      ,t -> d
-      || V _ V
-      ,  V _ .#.
-      ,  VoicedC _ ?];
+define CRule1 [k -> g
+              ,p -> b
+              ,t -> d
+              || V _ V
+              ,  V _ .#.
+              ,  VoicedC _ ?];
 
 ! Word-final n is dropped everywhere except in verbs. (consonant rule number 5.)
-regex [n (->) 0 || _ .#.];
+define CRule5 [n (->) 0 || _ .#.];
 ! if n is not dropped, the word is a verb, but this is rare so we add a penalty
-regex [[. .] -> ["+V"::1] || n _ .#.];
+define CRule5a [[. .] -> ["+V"::1] || n _ .#.];
 
 ! Word-internal d is dropped in Estonian (consonant rule nr 7).
 ! @todo probably long vowels should be shortened before dropping the d (see #9)
-regex [d -> 0 || V _ V, h _ V];
+define CRule7 [d -> 0 || V _ V, h _ V];
 
 ! @todo add consonant rule nr 2
 ! @todo add other "phonetical" rules
 ! @todo add syllabification rules
 
 ! Long vowels are shortened in front of h (vowel rule 9).
-regex [{aa} -> a
-      ,{oo} -> o
-      ,{ee} -> e
-      ,{uu} -> u
-      ,{ii} -> i
-      ,{ää} -> ä
-      ,{õõ} -> {õ}
-      ,{öö} -> ö
-      ,{üü} -> ü
-      ,{yy} -> y
-      || _ h];
+define CRule9 [{aa} -> a
+              ,{oo} -> o
+              ,{ee} -> e
+              ,{uu} -> u
+              ,{ii} -> i
+              ,{ää} -> ä
+              ,{õõ} -> {õ}
+              ,{öö} -> ö
+              ,{üü} -> ü
+              ,{yy} -> y
+              || _ h];
 
-! h disappears if in beginning of a syllable (vowel rule nr 8).
-regex [h -> 0 \\ C _ V];
+! h disappears if in beginning of a syllable (consonant rule nr 8).
+define CRule8 [h -> 0 \\ C _ V];
 
 
 
 ! @todo use named definitions and compose the definitions (instead of the stack)
 
-rotate stack ! this makes the last rule the first to apply
-compose net
+! order and compose the rules
+regex [
+  CRule8
+  .o.
+  VRule2
+  .o.
+  VRule7
+  .o.
+  VRule7a
+  .o.
+  VRule7b
+  .o.
+  VRule7c
+  .o.
+  VRule8
+  .o.
+  VRule3
+  .o.
+  VRule3a
+  .o.
+  VRule4
+  .o.
+  VRule6
+  .o.
+  CRule3
+  .o.
+  CRule3a
+  .o.
+  CRule1
+  .o.
+  CRule5
+  .o.
+  CRule5a
+  .o.
+  CRule7
+  .o.
+  CRule9
+];
