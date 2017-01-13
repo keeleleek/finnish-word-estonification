@@ -79,8 +79,8 @@ define VRule4 [o -> u
 ! @todo does syncope occur only if ending in 'er' or 'el'?
 ! @todo add weight when rule is not applied
 define VRule6 [V+ (->) 0
-              || C V V C C _ C V
-              ,  C V C C _ C V
+              || C V V C C+ _ C V
+              ,  C V C C+ _ C V
               ,  C V V C _ C V];
 
 
