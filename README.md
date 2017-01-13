@@ -31,7 +31,8 @@ Example of estonification of a full sentence using hfst-proc2:
 Load the script into xfst ```hfst-xfst -l finnish-word-estonification.script```
 and use command ```up``` with Finnish words
 
-# Examples
+Two examples using the command up for looking up single words within the hfst-xfst interface.
+
 Finnish "Minä olen uusi eestin kielen opettaja" should be estonificated "Mina olen uus eesti keele õpetaja".
 ```
 hfst[1]: up minä
@@ -68,6 +69,7 @@ hfst[1]: up kauan
 kaua	0.00000
 kauan+V	1.00000
 ```
+
 
 # Errata
 There exists many errors and faults. Some will be dealt with and some not. The project will soon get a more solid framework for testing.
