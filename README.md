@@ -4,6 +4,30 @@ A finite state transducer that makes Finnish words more close to their potential
 The script was done mainly for educational purposes of the author, but could be useful for finding cognates in Finnish-Estonian parallel texts or dictionaries.
 
 # Usage
+FSTs can be used in many ways. Here are described two ways: compiling the FST with make, and running the script directly with hfst-xfst.
+
+## Compiling the script
+The FST script can be compiled and thereafter be used with several other HFST interfaces, e.g hfst-lookup and hfst-proc2.
+
+First run make to compile. Simply run ```make```.
+
+The compiled tool ```fin-estonifier.fst``` can be run with ```hfst-lookup``` for single word lookups or ```hfst-proc2``` for full text input.
+
+Example of estonification of a single word 'teatterin' using hfst-lookup (the correct Estonian wordform is 'teatri'):
+```
+hfst-lookup fin-estonifier.fst
+> teatterin
+teatterin	teaderi	0,000000
+teatterin	teatri	0,000000
+teatterin	teaderin+V	1,000000
+teatterin	teatrin+V	1,000000
+```
+
+Example of estonification of a full sentence using hfst-proc2:
+```echo "minä olen teidän uusi viron kielen opettaja" | hfst-proc2 fin-estonifier.fst```
+
+
+## Running the script with hfst-xfst
 Load the script into xfst ```hfst-xfst -l finnish-word-estonification.script```
 and use command ```up``` with Finnish words
 
