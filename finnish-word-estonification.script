@@ -133,7 +133,7 @@ define CRule7a [{aa} -> a
               ,{öö} -> ö
               ,{üü} -> ü
               ,{yy} -> y
-              || _ d];
+              || _ d V];
 
 ! @todo add consonant rule nr 2
 ! @todo add other "phonetical" rules
