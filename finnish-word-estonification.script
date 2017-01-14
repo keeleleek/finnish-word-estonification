@@ -98,10 +98,26 @@ define CRule3 [{kk} -> k
 
 
 ! Also shorten long consonants in the end of the word
-! @todo this should apply to all consonants
 define CRule3a [{kk} -> k
                ,{pp} -> p
                ,{tt} -> t
+               ,{ff} -> f
+               ,{gg} -> g
+               ,{cc} -> c
+               ,{rr} -> r
+               ,{ll} -> l
+               ,{dd} -> d
+               ,{hh} -> h
+               ,{nn} -> n
+               ,{ss} -> s
+               ,{qq} -> q
+               ,{jj} -> j
+               ,{xx} -> x
+               ,{bb} -> b
+               ,{mm} -> m
+               ,{ww} -> w
+               ,{vv} -> v
+               ,{zz} -> z
                || _ .#.];
 
 
@@ -175,11 +191,11 @@ regex [
   .o.  VRule6  ! Syncope
   .o.  CRule7a ! long vowels are shortened before dropping the d
   .o.  CRule7  ! Word-internal d is dropped
-  .o.  CRule3  ! Long consonants are written with one grapheme
-  .o.  CRule3a ! Long consonants are shorted in the end of the word
   .o.  CRule1  ! Finnish kpt is written as gbd
   .o.  CRule5  ! Word-final n is dropped
   .o.  CRule5a ! if word-final n is not dropped, the word is a verb
+  .o.  CRule3  ! Long kpt consonants are written with one grapheme
+  .o.  CRule3a ! Long consonants are shorted in the end of the word
   .o.  VRule8  ! Other probable diphtong correspondencies
   .o.  CRule9  ! Long vowels are shortened in front of h
 ];
