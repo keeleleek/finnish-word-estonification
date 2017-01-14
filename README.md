@@ -71,5 +71,13 @@ kauan+V	1.00000
 ```
 
 
+# About the rules
+Most rules come from the book *Hakkame rääkima!: viron kielen peruskurssi* by Reet Kasik (1997, Publications of the Department of Finnish and General Linguistics of the University of Turku 37).
+Some rules has been redefined and some new rules has been added.
+
+Kimmo Koskenniemi has made a similar and probably better tool which is described in the article *[Finite-state relations between two historically closely related languages](http://www.ep.liu.se/ecp/article.asp?issue=087&article=004)* in Proceedings of the workshop on computational historical linguistics at NODALIDA 2013; May 22-24; 2013; Oslo; Norway. NEALT Proceedings Series 18, 53–53. Linköping University Electronic Press.
+
+
+
 # Errata
 There exists many errors and faults. Some will be dealt with and some not. The project will soon get a more solid framework for testing.
